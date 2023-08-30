@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>SpaceX Missions</title>
+</head>
+
+<body>
+    <h1>Space X Missions</h1>
+    <script>
+
+        function fetchData() {
+            const data = fetch('https://api.spacexdata.com/v3/missions');
+            data.then((res) => {
+                return res.json();
+            }).then((res) => {
+                populateDom(res);
+            })
+        }
+        fetchData();
+
+        //man erhaltet eine jsondatei von spacex
+        //die fetch api gibt ein response objekt zurück(res)
+        //mit der json() methode extrahiert man die daten
+        //danach übergibt man das objekt der funktion populateDom()
+
+
+        const populateDom = (missions) => {
+            missions.forEach(mission => {
+                const div = document.createElement('div');
+                const link = document.createElement('a');
+                link.href=mission.website
+                link.textContent=' Find more infos here!';
+                link.target='_blank';
+                div.textContent=`SpaceX Mission: ${mission.mission_name }`;
+                div.appendChild(link);
+                document.body.appendChild(div);
+    
+        });
+    }
+    </script>
+</body>
+
+</html>
